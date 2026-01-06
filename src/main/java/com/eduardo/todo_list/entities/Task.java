@@ -29,4 +29,9 @@ public class Task {
     @Column(nullable = false)
     private Instant createdAt;
 
+    @PrePersist
+    public void markAsCreated() {
+        this.createdAt = Instant.now();
+    }
+
 }
