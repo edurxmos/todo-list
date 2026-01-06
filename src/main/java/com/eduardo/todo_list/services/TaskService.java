@@ -36,4 +36,11 @@ public class TaskService {
         return list();
     }
 
+    @Transactional
+    public List<Task> markAsDone(Long id) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found."));
+        task.markAsDone();
+        return list();
+    }
+
 }

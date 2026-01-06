@@ -34,4 +34,8 @@ public class Task {
         this.createdAt = Instant.now();
     }
 
+    public void markAsDone() {
+        this.done = true;
+    }
+
 }

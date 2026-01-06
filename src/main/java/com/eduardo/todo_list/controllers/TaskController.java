@@ -36,4 +36,9 @@ public class TaskController {
         return taskService.delete(id);
     }
 
+    @PutMapping("/done/{id}")
+    public List<Task> markAsDone(@PathVariable Long id) {
+        return taskService.markAsDone(id);
+    }
+
 }
