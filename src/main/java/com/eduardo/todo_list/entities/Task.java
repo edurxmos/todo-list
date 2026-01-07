@@ -44,4 +44,9 @@ public class Task {
         this.done = true;
     }
 
+    public void update(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
 }
