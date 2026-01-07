@@ -1,5 +1,7 @@
 package com.eduardo.todo_list.controllers;
 
+import com.eduardo.todo_list.dtos.TaskRequestDTO;
+import com.eduardo.todo_list.dtos.TaskResponseDTO;
 import com.eduardo.todo_list.entities.Task;
 import com.eduardo.todo_list.services.TaskService;
 import org.springframework.web.bind.annotation.*;
@@ -17,27 +19,27 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> list() {
+    public List<TaskResponseDTO> list() {
         return taskService.list();
     }
 
     @PostMapping
-    public List<Task> create(@RequestBody Task task) {
-        return taskService.create(task);
+    public List<TaskResponseDTO> create(@RequestBody TaskRequestDTO dto) {
+        return taskService.create(dto);
     }
 
     @PutMapping("/{id}")
-    public List<Task> update(@RequestBody Task task) {
-        return taskService.update(task);
+    public List<TaskResponseDTO> update(@PathVariable Long id, @RequestBody TaskRequestDTO dto) {
+        return taskService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public List<Task> delete(@PathVariable Long id) {
+    public List<TaskResponseDTO> delete(@PathVariable Long id) {
         return taskService.delete(id);
     }
 
     @PutMapping("/done/{id}")
-    public List<Task> markAsDone(@PathVariable Long id) {
+    public List<TaskResponseDTO> markAsDone(@PathVariable Long id) {
         return taskService.markAsDone(id);
     }
 
