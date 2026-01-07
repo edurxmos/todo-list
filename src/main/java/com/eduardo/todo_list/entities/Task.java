@@ -13,6 +13,12 @@ import java.time.Instant;
 @Table(name = "tb_task")
 public class Task {
 
+    public Task(String title, String description) {
+        this.title = title;
+        this.description = description;
+        this.done = false;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
