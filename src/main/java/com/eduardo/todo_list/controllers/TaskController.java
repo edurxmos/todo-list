@@ -2,11 +2,10 @@ package com.eduardo.todo_list.controllers;
 
 import com.eduardo.todo_list.dtos.TaskRequestDTO;
 import com.eduardo.todo_list.dtos.TaskResponseDTO;
-import com.eduardo.todo_list.entities.Task;
 import com.eduardo.todo_list.services.TaskService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/task")
@@ -19,28 +18,28 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<TaskResponseDTO> list() {
-        return taskService.list();
+    public Page<TaskResponseDTO> list(Pageable pageable) {
+        return taskService.list(pageable);
     }
 
     @PostMapping
-    public List<TaskResponseDTO> create(@RequestBody TaskRequestDTO dto) {
-        return taskService.create(dto);
+    public Page<TaskResponseDTO> create(@RequestBody TaskRequestDTO dto, Pageable pageable) {
+        return taskService.create(dto, pageable);
     }
 
     @PutMapping("/{id}")
-    public List<TaskResponseDTO> update(@PathVariable Long id, @RequestBody TaskRequestDTO dto) {
-        return taskService.update(id, dto);
+    public Page<TaskResponseDTO> update(@PathVariable Long id, @RequestBody TaskRequestDTO dto, Pageable pageable) {
+        return taskService.update(id, dto, pageable);
     }
 
     @DeleteMapping("/{id}")
-    public List<TaskResponseDTO> delete(@PathVariable Long id) {
-        return taskService.delete(id);
+    public Page<TaskResponseDTO> delete(@PathVariable Long id, Pageable pageable) {
+        return taskService.delete(id, pageable);
     }
 
     @PutMapping("/done/{id}")
-    public List<TaskResponseDTO> markAsDone(@PathVariable Long id) {
-        return taskService.markAsDone(id);
+    public Page<TaskResponseDTO> markAsDone(@PathVariable Long id, Pageable pageable) {
+        return taskService.markAsDone(id, pageable);
     }
 
 }

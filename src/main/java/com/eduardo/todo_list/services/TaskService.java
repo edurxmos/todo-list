@@ -5,6 +5,8 @@ import com.eduardo.todo_list.dtos.TaskResponseDTO;
 import com.eduardo.todo_list.entities.Task;
 import com.eduardo.todo_list.mappers.TaskMapper;
 import com.eduardo.todo_list.repositories.TaskRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,34 +24,34 @@ public class TaskService {
     }
 
     @Transactional(readOnly = true)
-    public List<TaskResponseDTO> list() {
-        List<TaskResponseDTO> dto = taskRepository.findAll().stream().map(x -> taskMapper.toResponse(x)).toList();
+    public Page<TaskResponseDTO> list(Pageable pageable) {
+        Page<TaskResponseDTO> dto = taskRepository.findAll(pageable).map(x -> taskMapper.toResponse(x));
         return dto;
     }
 
-    public List<TaskResponseDTO> create(TaskRequestDTO task) {
+    public Page<TaskResponseDTO> create(TaskRequestDTO task, Pageable pageable) {
         Task entity = taskMapper.toEntity(task);
         taskRepository.save(entity);
-        return list();
+        return list(pageable);
     }
 
-    public List<TaskResponseDTO> update(Long id, TaskRequestDTO dto) {
+    public Page<TaskResponseDTO> update(Long id, TaskRequestDTO dto, Pageable pageable) {
         Task entity = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found."));
         taskMapper.updateEntity(entity, dto);
         taskRepository.save(entity);
-        return list();
+        return list(pageable);
     }
 
-    public List<TaskResponseDTO> delete(Long id) {
+    public Page<TaskResponseDTO> delete(Long id, Pageable pageable) {
         taskRepository.deleteById(id);
-        return list();
+        return list(pageable);
     }
 
     @Transactional
-    public List<TaskResponseDTO> markAsDone(Long id) {
+    public Page<TaskResponseDTO> markAsDone(Long id, Pageable pageable) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found."));
         task.markAsDone();
-        return list();
+        return list(pageable);
     }
 
 }
