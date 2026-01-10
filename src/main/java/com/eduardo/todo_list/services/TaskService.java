@@ -6,6 +6,7 @@ import com.eduardo.todo_list.entities.Task;
 import com.eduardo.todo_list.mappers.TaskMapper;
 import com.eduardo.todo_list.repositories.TaskRepository;
 import com.eduardo.todo_list.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,11 @@ public class TaskService {
 
     public Page<TaskResponseDTO> update(Long id, TaskRequestDTO dto, Pageable pageable) {
         try {
-            Task entity = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found."));
+            Task entity = taskRepository.getReferenceById(id);
             taskMapper.updateEntity(entity, dto);
             taskRepository.save(entity);
             return list(pageable);
-        } catch (ResourceNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Task not found.");
         }
     }
@@ -55,9 +56,13 @@ public class TaskService {
 
     @Transactional
     public Page<TaskResponseDTO> markAsDone(Long id, Pageable pageable) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found."));
-        task.markAsDone();
-        return list(pageable);
+        try {
+            Task entity = taskRepository.getReferenceById(id);
+            entity.markAsDone();
+            return list(pageable);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Task not found.");
+        }
     }
 
 }
