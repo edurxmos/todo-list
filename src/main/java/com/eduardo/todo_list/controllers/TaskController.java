@@ -41,7 +41,7 @@ public class TaskController {
 
     @PutMapping("/done/{id}")
     public ResponseEntity<Page<TaskResponseDTO>> markAsDone(@PathVariable Long id, Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(taskService.markAsDone(id, pageable));
+        return ResponseEntity.ok(taskService.markAsDone(id, pageable));
     }
 
 }
