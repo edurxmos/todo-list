@@ -3,6 +3,7 @@ package com.eduardo.todo_list.controllers;
 import com.eduardo.todo_list.dtos.TaskRequestDTO;
 import com.eduardo.todo_list.dtos.TaskResponseDTO;
 import com.eduardo.todo_list.services.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Page<TaskResponseDTO>> create(@RequestBody TaskRequestDTO dto, Pageable pageable) {
+    public ResponseEntity<Page<TaskResponseDTO>> create(@Valid @RequestBody TaskRequestDTO dto, Pageable pageable) {
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.create(dto, pageable));
     }
 
