@@ -1,7 +1,7 @@
 package com.eduardo.todo_list.controllers;
 
-import com.eduardo.todo_list.dtos.TaskRequestDTO;
-import com.eduardo.todo_list.dtos.TaskResponseDTO;
+import com.eduardo.todo_list.dtos.task.TaskRequestDTO;
+import com.eduardo.todo_list.dtos.task.TaskResponseDTO;
 import com.eduardo.todo_list.services.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;

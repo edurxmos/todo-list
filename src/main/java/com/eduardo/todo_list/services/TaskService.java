@@ -1,7 +1,7 @@
 package com.eduardo.todo_list.services;
 
-import com.eduardo.todo_list.dtos.TaskRequestDTO;
-import com.eduardo.todo_list.dtos.TaskResponseDTO;
+import com.eduardo.todo_list.dtos.task.TaskRequestDTO;
+import com.eduardo.todo_list.dtos.task.TaskResponseDTO;
 import com.eduardo.todo_list.entities.Task;
 import com.eduardo.todo_list.mappers.TaskMapper;
 import com.eduardo.todo_list.repositories.TaskRepository;

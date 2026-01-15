@@ -1,4 +1,4 @@
-package com.eduardo.todo_list.dtos;
+package com.eduardo.todo_list.dtos.task;
 
 import java.time.Instant;
 

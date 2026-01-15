@@ -1,4 +1,4 @@
-package com.eduardo.todo_list.dtos;
+package com.eduardo.todo_list.dtos.task;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
